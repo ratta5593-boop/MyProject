@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects</title>
+  <title>آن لائن کتب خانہ و منصوبے</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,58 +11,94 @@
 
   <style>
     :root {
-      /* تصاویر والے بلاگ کا تھیم کلر */
-      --bg-color: #f7f4eb;
-      --text-green: #213829;
-      --text-gold: #b28d46;
+      --bg-color: #f5f2e9;
+      --text-green: #1b382b;
+      --text-gold: #b38e46;
       --card-bg: #ffffff;
-      --border-color: #e4dfd3;
-      --danger-red: #8b0000;
+      --border-color: #e2ded0;
+      --danger-red: #9e2a2b;
+      --edit-blue: #2b5c8f;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
 
     body {
       background-color: var(--bg-color);
       color: #333;
       font-family: 'Noto Nastaliq Urdu', serif;
-      padding: 30px 20px;
+      padding: 20px 15px;
+    }
+
+    /* Top Navigation Bar */
+    .top-nav {
+      max-width: 900px;
+      margin: 0 auto 25px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    .btn-home { background-color: var(--text-green); }
+    .btn-add { background-color: var(--text-gold); }
+    .btn-settings { background-color: var(--text-green); }
+    .btn-logout { background-color: var(--danger-red); }
+
+    .nav-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .admin-controls-bar {
+      display: none;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 35px;
     }
 
-    /* منصوبے / Projects سرخی */
     .header-title-ur {
       color: var(--text-green);
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: bold;
       line-height: 1.8;
-      display: block;
     }
 
-    .header-title-en {
-      color: var(--text-gold);
-      font-size: 1.5rem;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      letter-spacing: 2px;
-      display: block;
-      margin-top: -5px;
+    .header-sub {
+      color: #555;
+      font-size: 1rem;
+      margin-top: 5px;
     }
 
+    /* Main Grid & Cards Layout */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 25px;
-      max-width: 1000px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 900px;
       margin: 0 auto;
     }
 
@@ -70,56 +106,82 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 25px 20px;
+      padding: 20px;
       text-align: center;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-      text-decoration: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      cursor: pointer;
+      position: relative;
     }
 
     .project-card:hover {
-      transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
       border-color: var(--text-gold);
     }
 
+    .project-link {
+      text-decoration: none;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .project-card img {
-      width: 75px;
-      height: 75px;
+      width: 80px;
+      height: 80px;
       object-fit: contain;
-      margin-bottom: 18px;
+      margin-bottom: 15px;
     }
 
     .project-title-ur {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: var(--text-green);
       line-height: 1.8;
       font-weight: bold;
-      display: block;
     }
 
     .project-title-en {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-gold);
       font-family: 'Cinzel', serif;
       font-weight: 700;
       letter-spacing: 1px;
-      display: block;
       margin-top: 2px;
     }
 
-    /* Modal System */
+    /* Admin Edit/Delete Action Buttons on Cards */
+    .card-admin-actions {
+      display: none;
+      margin-top: 15px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+      width: 100%;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 5px 12px;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: #fff;
+      font-family: inherit;
+    }
+
+    .btn-edit { background-color: var(--edit-blue); }
+    .btn-delete { background-color: var(--danger-red); }
+
+    /* Modal Styling */
     .modal {
       display: none;
       position: fixed;
       z-index: 100;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0,0,0,0.5);
       justify-content: center;
       align-items: center;
@@ -127,10 +189,10 @@
 
     .modal-content {
       background-color: var(--card-bg);
-      padding: 30px;
+      padding: 25px 30px;
       border-radius: 12px;
       width: 90%;
-      max-width: 450px;
+      max-width: 420px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
       position: relative;
     }
@@ -149,7 +211,7 @@
       display: block;
       margin-bottom: 5px;
       color: var(--text-green);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
 
     .form-group input {
@@ -161,36 +223,27 @@
       font-family: inherit;
     }
 
-    .btn {
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-full {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-family: inherit;
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
-
-    .btn-primary {
-      background-color: var(--text-green);
-      color: #fff;
-    }
-
-    .btn-secondary {
-      background-color: var(--text-gold);
-      color: #fff;
-    }
-
-    .btn-danger {
-      background-color: var(--danger-red);
+      font-size: 0.95rem;
       color: #fff;
     }
 
     .close-btn {
       position: absolute;
-      top: 15px;
-      left: 20px;
+      top: 12px;
+      left: 18px;
       font-size: 1.4rem;
       cursor: pointer;
       color: #888;
@@ -199,162 +252,177 @@
     .error-msg {
       color: var(--danger-red);
       font-size: 0.85rem;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       text-align: center;
-      display: none;
-    }
-
-    .admin-view {
       display: none;
     }
   </style>
 </head>
 <body>
 
+  <nav class="top-nav">
+    <a href="https://attaurrehman-atta.blogspot.com" class="nav-btn btn-home">
+      صفحہ اول (Home)
+    </a>
+
+    <div class="admin-controls-bar" id="adminBar">
+      <button class="nav-btn btn-add" id="openAddModalBtn">+ پروجیکٹ اپلوڈ کریں</button>
+      <button class="nav-btn btn-settings" id="openCredModalBtn">⚙ سیٹنگز</button>
+      <button class="nav-btn btn-logout" id="logoutBtn">لاگ آؤٹ</button>
+    </div>
+  </nav>
+
   <header>
-    <h1 class="header-title-ur">منصوبے</h1>
-    <span class="header-title-en">PROJECTS</span>
+    <h1 class="header-title-ur">آن لائن کتب خانہ و منصوبے</h1>
+    <p class="header-sub">مطالعہ کے لیے نیچے دی گئی کتب یا پروجیکٹس پر کلک کریں</p>
   </header>
 
   <main class="projects-grid" id="projectsContainer">
-    <a href="https://example.com/translator" target="_blank" class="project-card">
-      <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="Brahui Translator">
-      <div class="project-title-ur">براہوئی ٹرانسلیٹر</div>
-      <div class="project-title-en">Brahui Translator</div>
-    </a>
+    <div class="project-card" data-id="default-1">
+      <a href="https://example.com/translator" target="_blank" class="project-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="Brahui Translator">
+        <div class="project-title-ur">براہوئی ٹرانسلیٹر</div>
+        <div class="project-title-en">Brahui Translator</div>
+      </a>
+      <div class="card-admin-actions">
+        <button class="action-btn btn-edit" onclick="editProject('default-1')">ایڈٹ</button>
+        <button class="action-btn btn-delete" onclick="deleteProject('default-1')">ڈیلیٹ</button>
+      </div>
+    </div>
 
-    <a href="https://example.com/vocabulary" target="_blank" class="project-card">
-      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Brahui Vocabulary">
-      <div class="project-title-ur">براہوئی ذخیرہ الفاظ</div>
-      <div class="project-title-en">Brahui Vocabulary</div>
-    </a>
+    <div class="project-card" data-id="default-2">
+      <a href="https://example.com/vocabulary" target="_blank" class="project-link">
+        <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Brahui Vocabulary">
+        <div class="project-title-ur">براہوئی ذخیرہ الفاظ</div>
+        <div class="project-title-en">Brahui Vocabulary</div>
+      </a>
+      <div class="card-admin-actions">
+        <button class="action-btn btn-edit" onclick="editProject('default-2')">ایڈٹ</button>
+        <button class="action-btn btn-delete" onclick="deleteProject('default-2')">ڈیلیٹ</button>
+      </div>
+    </div>
   </main>
 
-  <div id="adminModal" class="modal">
+  <div id="loginModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" id="closeModal">&times;</span>
+      <span class="close-btn" onclick="closeModals()">&times;</span>
+      <h3>ایڈمن لاگ ان</h3>
+      <div id="loginError" class="error-msg">غلط یوزر نیم یا پاس ورڈ!</div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>یوزر نیم (Username):</label>
+          <input type="text" id="loginUser" style="direction: ltr;" required>
+        </div>
+        <div class="form-group">
+          <label>پاس ورڈ (Password):</label>
+          <input type="password" id="loginPass" style="direction: ltr;" required>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn-full btn-home">لاگ ان کریں</button>
+          <button type="button" class="btn-full btn-logout" onclick="closeModals()">منسوخ</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-      <div id="loginView">
-        <h3>ایڈمن لاگ ان (Admin Login)</h3>
-        
-        <div id="loginError" class="error-msg">غلط یوزر نیم یا پاس ورڈ! / Invalid Credentials!</div>
+  <div id="projectModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModals()">&times;</span>
+      <h3 id="modalProjectTitle">نیا پروجیکٹ شامل کریں</h3>
+      <form id="projectForm">
+        <input type="hidden" id="editProjId">
+        <div class="form-group">
+          <label>پروجیکٹ کا نام (اردو):</label>
+          <input type="text" id="projUrName" required placeholder="مثال: براہوئی ڈکشنری">
+        </div>
+        <div class="form-group">
+          <label>پروجیکٹ کا نام (انگلش):</label>
+          <input type="text" id="projEnName" style="direction: ltr;" required placeholder="e.g. Brahui Dictionary">
+        </div>
+        <div class="form-group">
+          <label>آئکن / فوٹو کا لنک (Image URL):</label>
+          <input type="url" id="projIcon" style="direction: ltr;" required placeholder="https://example.com/icon.png">
+        </div>
+        <div class="form-group">
+          <label>پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
+          <input type="url" id="projLink" style="direction: ltr;" required placeholder="https://your-project-link.com">
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn-full btn-add">محفوظ کریں</button>
+          <button type="button" class="btn-full btn-logout" onclick="closeModals()">منسوخ</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-        <form id="loginForm">
-          <div class="form-group">
-            <label>یوزر نیم (Username):</label>
-            <input type="text" id="loginUser" style="direction: ltr;" required>
-          </div>
-          <div class="form-group">
-            <label>پاس ورڈ (Password):</label>
-            <input type="password" id="loginPass" style="direction: ltr;" required>
-          </div>
-          <button type="submit" class="btn btn-primary">لاگ ان کریں (Login)</button>
-        </form>
-      </div>
-
-      <div id="dashboardView" class="admin-view">
-        <h3>ایڈمن کنٹرول پینل</h3>
-
-        <button class="btn btn-primary" id="showAddProjectBtn">نیا پروجیکٹ شامل کریں (Add Project)</button>
-        <button class="btn btn-secondary" id="showCredentialsBtn">یوزر نیم / پاس ورڈ تبدیل کریں (Change Auth)</button>
-        <button class="btn btn-danger" id="logoutBtn">لاگ آؤٹ (Logout)</button>
-      </div>
-
-      <div id="addProjectView" class="admin-view">
-        <h3>نیا پروجیکٹ شامل کریں</h3>
-
-        <form id="addProjectForm">
-          <div class="form-group">
-            <label>پروجیکٹ کا نام (اردو):</label>
-            <input type="text" id="projUrName" required placeholder="مثال: براہوئی ڈکشنری">
-          </div>
-          <div class="form-group">
-            <label>پروجیکٹ کا نام (انگلش):</label>
-            <input type="text" id="projEnName" style="direction: ltr;" required placeholder="e.g. Brahui Dictionary">
-          </div>
-          <div class="form-group">
-            <label>آئکن / فوٹو کا لنک (Image URL):</label>
-            <input type="url" id="projIcon" style="direction: ltr;" required placeholder="https://example.com/icon.png">
-          </div>
-          <div class="form-group">
-            <label>پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
-            <input type="url" id="projLink" style="direction: ltr;" required placeholder="https://your-project-link.com">
-          </div>
-
-          <button type="submit" class="btn btn-primary">محفوظ کریں (Save)</button>
-          <button type="button" class="btn btn-secondary" id="backToDashFromAdd">واپس ڈیش بورڈ (Back)</button>
-        </form>
-      </div>
-
-      <div id="credentialsView" class="admin-view">
-        <h3>کریڈینشلز تبدیل کریں</h3>
-
-        <form id="changeCredentialsForm">
-          <div class="form-group">
-            <label>نیا یوزر نیم (New Username):</label>
-            <input type="text" id="newUsername" style="direction: ltr;" required>
-          </div>
-          <div class="form-group">
-            <label>نیا پاس ورڈ (New Password):</label>
-            <input type="password" id="newPassword" style="direction: ltr;" required>
-          </div>
-
-          <button type="submit" class="btn btn-primary">اپڈیٹ کریں (Update)</button>
-          <button type="button" class="btn btn-secondary" id="backToDashFromCred">واپس ڈیش بورڈ (Back)</button>
-        </form>
-      </div>
-
+  <div id="credModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModals()">&times;</span>
+      <h3>کریڈینشلز تبدیل کریں</h3>
+      <form id="credForm">
+        <div class="form-group">
+          <label>نیا یوزر نیم (New Username):</label>
+          <input type="text" id="newUsername" style="direction: ltr;" required>
+        </div>
+        <div class="form-group">
+          <label>نیا پاس ورڈ (New Password):</label>
+          <input type="password" id="newPassword" style="direction: ltr;" required>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn-full btn-settings">اپڈیٹ کریں</button>
+          <button type="button" class="btn-full btn-logout" onclick="closeModals()">منسوخ</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <script>
-    const modal = document.getElementById('adminModal');
-    const closeModal = document.getElementById('closeModal');
     const container = document.getElementById('projectsContainer');
+    const adminBar = document.getElementById('adminBar');
 
-    const loginView = document.getElementById('loginView');
-    const dashboardView = document.getElementById('dashboardView');
-    const addProjectView = document.getElementById('addProjectView');
-    const credentialsView = document.getElementById('credentialsView');
-    const loginError = document.getElementById('loginError');
+    // Default Credentials
+    if (!localStorage.getItem('adminUser')) localStorage.setItem('adminUser', 'atta');
+    if (!localStorage.getItem('adminPass')) localStorage.setItem('adminPass', '1234');
 
-    // Default Credentials Setup
-    if (!localStorage.getItem('adminUser')) localStorage.setItem('adminUser', 'admin');
-    if (!localStorage.getItem('adminPass')) localStorage.setItem('adminPass', '12345');
+    // Initial Projects Data Load
+    let savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
 
-    function showAdminView(viewName) {
-      loginView.style.display = 'none';
-      dashboardView.style.display = 'none';
-      addProjectView.style.display = 'none';
-      credentialsView.style.display = 'none';
-
-      if (viewName === 'login') loginView.style.display = 'block';
-      if (viewName === 'dashboard') dashboardView.style.display = 'block';
-      if (viewName === 'add') addProjectView.style.display = 'block';
-      if (viewName === 'credentials') credentialsView.style.display = 'block';
+    function checkAdminState() {
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+      adminBar.style.display = isLoggedIn ? 'flex' : 'none';
+      
+      document.querySelectorAll('.card-admin-actions').forEach(el => {
+        el.style.display = isLoggedIn ? 'flex' : 'none';
+      });
     }
 
     function checkHash() {
       if (window.location.hash === '#admin') {
-        modal.style.display = 'flex';
         if (sessionStorage.getItem('isLoggedIn') === 'true') {
-          showAdminView('dashboard');
+          checkAdminState();
         } else {
-          showAdminView('login');
+          document.getElementById('loginModal').style.display = 'flex';
         }
       } else {
-        modal.style.display = 'none';
+        closeModals();
       }
     }
-    window.addEventListener('load', checkHash);
+
+    window.addEventListener('load', () => {
+      renderSavedProjects();
+      checkHash();
+      checkAdminState();
+    });
     window.addEventListener('hashchange', checkHash);
 
-    closeModal.onclick = function() {
-      modal.style.display = 'none';
-      history.pushState("", document.title, window.location.pathname + window.location.search);
-    };
+    function closeModals() {
+      document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+      if (window.location.hash === '#admin' && sessionStorage.getItem('isLoggedIn') !== 'true') {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+    }
 
-    // 1. Handle Login
+    // Login Form
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const u = document.getElementById('loginUser').value;
@@ -362,82 +430,135 @@
 
       if (u === localStorage.getItem('adminUser') && p === localStorage.getItem('adminPass')) {
         sessionStorage.setItem('isLoggedIn', 'true');
-        loginError.style.display = 'none';
+        document.getElementById('loginError').style.display = 'none';
         this.reset();
-        showAdminView('dashboard');
+        closeModals();
+        checkAdminState();
       } else {
-        loginError.style.display = 'block';
+        document.getElementById('loginError').style.display = 'block';
       }
     });
 
-    // 2. Dashboard Navigation Buttons
-    document.getElementById('showAddProjectBtn').onclick = () => showAdminView('add');
-    document.getElementById('showCredentialsBtn').onclick = () => showAdminView('credentials');
-    document.getElementById('backToDashFromAdd').onclick = () => showAdminView('dashboard');
-    document.getElementById('backToDashFromCred').onclick = () => showAdminView('dashboard');
-
+    // Logout
     document.getElementById('logoutBtn').onclick = () => {
       sessionStorage.removeItem('isLoggedIn');
-      showAdminView('login');
-      modal.style.display = 'none';
+      checkAdminState();
       history.pushState("", document.title, window.location.pathname + window.location.search);
     };
 
-    // 3. Handle Credentials Change
-    document.getElementById('changeCredentialsForm').addEventListener('submit', function(e) {
+    // Open Modals
+    document.getElementById('openAddModalBtn').onclick = () => {
+      document.getElementById('projectForm').reset();
+      document.getElementById('editProjId').value = '';
+      document.getElementById('modalProjectTitle').innerText = 'نیا پروجیکٹ شامل کریں';
+      document.getElementById('projectModal').style.display = 'flex';
+    };
+
+    document.getElementById('openCredModalBtn').onclick = () => {
+      document.getElementById('credModal').style.display = 'flex';
+    };
+
+    // Change Credentials
+    document.getElementById('credForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const newU = document.getElementById('newUsername').value;
-      const newP = document.getElementById('newPassword').value;
-
-      localStorage.setItem('adminUser', newU);
-      localStorage.setItem('adminPass', newP);
-
-      alert('یوزر نیم اور پاس ورڈ کامیابی سے تبدیل ہو گیا ہے!');
+      localStorage.setItem('adminUser', document.getElementById('newUsername').value);
+      localStorage.setItem('adminPass', document.getElementById('newPassword').value);
+      alert('یوزر نیم اور پاس ورڈ تبدیل کر دیا گیا ہے!');
       this.reset();
-      showAdminView('dashboard');
+      closeModals();
     });
 
-    // 4. Handle Add Project Form
-    document.getElementById('addProjectForm').addEventListener('submit', function(e) {
+    // Add / Edit Project Submit
+    document.getElementById('projectForm').addEventListener('submit', function(e) {
       e.preventDefault();
+      const editId = document.getElementById('editProjId').value;
       const urName = document.getElementById('projUrName').value;
       const enName = document.getElementById('projEnName').value;
       const icon = document.getElementById('projIcon').value;
       const link = document.getElementById('projLink').value;
 
-      const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
-      savedProjects.push({ urName, enName, icon, link });
+      if (editId) {
+        // Edit Existing Dynamic Project
+        savedProjects = savedProjects.map(p => p.id == editId ? { id: p.id, urName, enName, icon, link } : p);
+      } else {
+        // Add New
+        const newProj = { id: Date.now(), urName, enName, icon, link };
+        savedProjects.push(newProj);
+      }
+
       localStorage.setItem('myProjects', JSON.stringify(savedProjects));
-
-      appendProjectToDOM(urName, enName, icon, link);
-
-      this.reset();
-      showAdminView('dashboard');
+      renderSavedProjects();
+      closeModals();
     });
 
-    // 5. Load Projects Logic
-    function loadSavedProjects() {
-      const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
+    // Render Dynamic Projects
+    function renderSavedProjects() {
+      // Remove old dynamic cards
+      document.querySelectorAll('.project-card[data-dynamic="true"]').forEach(el => el.remove());
+
       savedProjects.forEach(proj => {
-        appendProjectToDOM(proj.urName, proj.enName, proj.icon, proj.link);
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.setAttribute('data-dynamic', 'true');
+        card.setAttribute('data-id', proj.id);
+
+        card.innerHTML = `
+          <a href="${proj.link}" target="_blank" class="project-link">
+            <img src="${proj.icon}" alt="${proj.enName}">
+            <div class="project-title-ur">${proj.urName}</div>
+            <div class="project-title-en">${proj.enName}</div>
+          </a>
+          <div class="card-admin-actions">
+            <button class="action-btn btn-edit" onclick="editProject('${proj.id}')">ایڈٹ</button>
+            <button class="action-btn btn-delete" onclick="deleteProject('${proj.id}')">ڈیلیٹ</button>
+          </div>
+        `;
+        container.appendChild(card);
       });
+
+      checkAdminState();
     }
 
-    function appendProjectToDOM(urName, enName, icon, link) {
-      const card = document.createElement('a');
-      card.href = link;
-      card.target = '_blank';
-      card.className = 'project-card';
+    // Delete Project Action
+    window.deleteProject = function(id) {
+      if (confirm('کیا آپ واقعی اس پروجیکٹ کو ڈیلیٹ کرنا چاہتے ہیں؟')) {
+        if (id.toString().startsWith('default')) {
+          const card = document.querySelector(`.project-card[data-id="${id}"]`);
+          if (card) card.remove();
+        } else {
+          savedProjects = savedProjects.filter(p => p.id != id);
+          localStorage.setItem('myProjects', JSON.stringify(savedProjects));
+          renderSavedProjects();
+        }
+      }
+    };
 
-      card.innerHTML = `
-        <img src="${icon}" alt="${enName || urName}">
-        <div class="project-title-ur">${urName}</div>
-        <div class="project-title-en">${enName || urName}</div>
-      `;
-      container.appendChild(card);
-    }
+    // Edit Project Action
+    window.editProject = function(id) {
+      let proj = savedProjects.find(p => p.id == id);
+      
+      if (!proj && id.toString().startsWith('default')) {
+        const card = document.querySelector(`.project-card[data-id="${id}"]`);
+        proj = {
+          id: id,
+          urName: card.querySelector('.project-title-ur').innerText,
+          enName: card.querySelector('.project-title-en').innerText,
+          icon: card.querySelector('img').src,
+          link: card.querySelector('a').href
+        };
+      }
 
-    loadSavedProjects();
+      if (proj) {
+        document.getElementById('editProjId').value = proj.id;
+        document.getElementById('projUrName').value = proj.urName;
+        document.getElementById('projEnName').value = proj.enName;
+        document.getElementById('projIcon').value = proj.icon;
+        document.getElementById('projLink').value = proj.link;
+        
+        document.getElementById('modalProjectTitle').innerText = 'پروجیکٹ ایڈٹ کریں';
+        document.getElementById('projectModal').style.display = 'flex';
+      }
+    };
   </script>
 </body>
 </html>
