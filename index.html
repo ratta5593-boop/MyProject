@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl" id="htmlRoot">
+<html lang="ur" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,11 +11,12 @@
 
   <style>
     :root {
-      --bg-color: #f7f5ed;
-      --text-green: #233b2c;
-      --text-gold: #b38e46;
+      /* تصاویر والے بلاگ کا تھیم کلر */
+      --bg-color: #f7f4eb;
+      --text-green: #213829;
+      --text-gold: #b28d46;
       --card-bg: #ffffff;
-      --border-color: #e2ded0;
+      --border-color: #e4dfd3;
       --danger-red: #8b0000;
     }
 
@@ -30,29 +31,7 @@
       background-color: var(--bg-color);
       color: #333;
       font-family: 'Noto Nastaliq Urdu', serif;
-      padding: 20px;
-    }
-
-    [lang="en"] body {
-      font-family: 'Cinzel', serif, sans-serif;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: flex-end;
-      max-width: 1000px;
-      margin: 0 auto 30px auto;
-    }
-
-    .lang-btn {
-      background-color: var(--text-green);
-      color: #fff;
-      border: none;
-      padding: 6px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-family: inherit;
+      padding: 30px 20px;
     }
 
     header {
@@ -60,6 +39,7 @@
       margin-bottom: 40px;
     }
 
+    /* منصوبے / Projects سرخی */
     .header-title-ur {
       color: var(--text-green);
       font-size: 2.2rem;
@@ -69,16 +49,14 @@
     }
 
     .header-title-en {
-      color: var(--text-green);
-      font-size: 2.2rem;
+      color: var(--text-gold);
+      font-size: 1.5rem;
       font-family: 'Cinzel', serif;
-      font-weight: bold;
-      letter-spacing: 1px;
-      display: none;
+      font-weight: 700;
+      letter-spacing: 2px;
+      display: block;
+      margin-top: -5px;
     }
-
-    [lang="en"] .header-title-ur { display: none; }
-    [lang="en"] .header-title-en { display: block; }
 
     .projects-grid {
       display: grid;
@@ -105,6 +83,7 @@
     .project-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      border-color: var(--text-gold);
     }
 
     .project-card img {
@@ -123,27 +102,14 @@
     }
 
     .project-title-en {
-      font-size: 1.1rem;
-      color: var(--text-green);
+      font-size: 0.95rem;
+      color: var(--text-gold);
       font-family: 'Cinzel', serif;
-      font-weight: bold;
-      display: none;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 2px;
     }
-
-    [lang="en"] .project-title-ur { display: none; }
-    [lang="en"] .project-title-en { display: block; }
-
-    /* Multilingual Visibility Control */
-    .txt-en { display: none !important; }
-    .txt-ur { display: block !important; }
-
-    [lang="en"] .txt-en { display: block !important; }
-    [lang="en"] .txt-ur { display: none !important; }
-
-    span.txt-en { display: inline !important; }
-    span.txt-ur { display: inline !important; }
-    [lang="en"] span.txt-ur { display: none !important; }
-    [lang="en"] span.txt-en { display: inline !important; }
 
     /* Modal System */
     .modal {
@@ -193,15 +159,6 @@
       border-radius: 6px;
       background: var(--bg-color);
       font-family: inherit;
-      direction: ltr;
-    }
-
-    .form-group input[type="text"] {
-      direction: rtl;
-    }
-
-    [lang="en"] .form-group input[type="text"] {
-      direction: ltr;
     }
 
     .btn {
@@ -239,11 +196,6 @@
       color: #888;
     }
 
-    [lang="en"] .close-btn {
-      left: auto;
-      right: 20px;
-    }
-
     .error-msg {
       color: var(--danger-red);
       font-size: 0.85rem;
@@ -259,13 +211,9 @@
 </head>
 <body>
 
-  <div class="top-bar">
-    <button class="lang-btn" id="langToggle">EN | اردو</button>
-  </div>
-
   <header>
     <h1 class="header-title-ur">منصوبے</h1>
-    <h1 class="header-title-en">Projects</h1>
+    <span class="header-title-en">PROJECTS</span>
   </header>
 
   <main class="projects-grid" id="projectsContainer">
@@ -287,115 +235,72 @@
       <span class="close-btn" id="closeModal">&times;</span>
 
       <div id="loginView">
-        <h3 class="txt-ur">ایڈمن لاگ ان</h3>
-        <h3 class="txt-en">Admin Login</h3>
+        <h3>ایڈمن لاگ ان (Admin Login)</h3>
         
-        <div id="loginError" class="error-msg">
-          <span class="txt-ur">غلط یوزر نیم یا پاس ورڈ!</span>
-          <span class="txt-en">Invalid username or password!</span>
-        </div>
+        <div id="loginError" class="error-msg">غلط یوزر نیم یا پاس ورڈ! / Invalid Credentials!</div>
 
         <form id="loginForm">
           <div class="form-group">
-            <label class="txt-ur">یوزر نیم:</label>
-            <label class="txt-en">Username:</label>
+            <label>یوزر نیم (Username):</label>
             <input type="text" id="loginUser" style="direction: ltr;" required>
           </div>
           <div class="form-group">
-            <label class="txt-ur">پاس ورڈ:</label>
-            <label class="txt-en">Password:</label>
-            <input type="password" id="loginPass" required>
+            <label>پاس ورڈ (Password):</label>
+            <input type="password" id="loginPass" style="direction: ltr;" required>
           </div>
-          <button type="submit" class="btn btn-primary">
-            <span class="txt-ur">لاگ ان کریں</span>
-            <span class="txt-en">Login</span>
-          </button>
+          <button type="submit" class="btn btn-primary">لاگ ان کریں (Login)</button>
         </form>
       </div>
 
       <div id="dashboardView" class="admin-view">
-        <h3 class="txt-ur">ایڈمن کنٹرول پینل</h3>
-        <h3 class="txt-en">Admin Dashboard</h3>
+        <h3>ایڈمن کنٹرول پینل</h3>
 
-        <button class="btn btn-primary" id="showAddProjectBtn">
-          <span class="txt-ur">نیا پروجیکٹ شامل کریں</span>
-          <span class="txt-en">Add New Project</span>
-        </button>
-        
-        <button class="btn btn-secondary" id="showCredentialsBtn">
-          <span class="txt-ur">یوزر نیم / پاس ورڈ تبدیل کریں</span>
-          <span class="txt-en">Change Credentials</span>
-        </button>
-
-        <button class="btn btn-danger" id="logoutBtn">
-          <span class="txt-ur">لاگ آؤٹ</span>
-          <span class="txt-en">Logout</span>
-        </button>
+        <button class="btn btn-primary" id="showAddProjectBtn">نیا پروجیکٹ شامل کریں (Add Project)</button>
+        <button class="btn btn-secondary" id="showCredentialsBtn">یوزر نیم / پاس ورڈ تبدیل کریں (Change Auth)</button>
+        <button class="btn btn-danger" id="logoutBtn">لاگ آؤٹ (Logout)</button>
       </div>
 
       <div id="addProjectView" class="admin-view">
-        <h3 class="txt-ur">نیا پروجیکٹ شامل کریں</h3>
-        <h3 class="txt-en">Add New Project</h3>
+        <h3>نیا پروجیکٹ شامل کریں</h3>
 
         <form id="addProjectForm">
           <div class="form-group">
-            <label class="txt-ur">پروجیکٹ کا نام (اردو):</label>
-            <label class="txt-en">Project Name (Urdu):</label>
-            <input type="text" id="projUrName" required>
+            <label>پروجیکٹ کا نام (اردو):</label>
+            <input type="text" id="projUrName" required placeholder="مثال: براہوئی ڈکشنری">
           </div>
           <div class="form-group">
-            <label class="txt-ur">پروجیکٹ کا نام (انگلش):</label>
-            <label class="txt-en">Project Name (English):</label>
-            <input type="text" id="projEnName" required>
+            <label>پروجیکٹ کا نام (انگلش):</label>
+            <input type="text" id="projEnName" style="direction: ltr;" required placeholder="e.g. Brahui Dictionary">
           </div>
           <div class="form-group">
-            <label class="txt-ur">آئکن / فوٹو کا لنک (Image URL):</label>
-            <label class="txt-en">Icon / Photo URL:</label>
-            <input type="url" id="projIcon" required placeholder="https://example.com/icon.png">
+            <label>آئکن / فوٹو کا لنک (Image URL):</label>
+            <input type="url" id="projIcon" style="direction: ltr;" required placeholder="https://example.com/icon.png">
           </div>
           <div class="form-group">
-            <label class="txt-ur">پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
-            <label class="txt-en">Project Website URL:</label>
-            <input type="url" id="projLink" required placeholder="https://your-project-link.com">
+            <label>پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
+            <input type="url" id="projLink" style="direction: ltr;" required placeholder="https://your-project-link.com">
           </div>
 
-          <button type="submit" class="btn btn-primary">
-            <span class="txt-ur">محفوظ کریں</span>
-            <span class="txt-en">Save Project</span>
-          </button>
-          
-          <button type="button" class="btn btn-secondary" id="backToDashFromAdd">
-            <span class="txt-ur">واپس ڈیش بورڈ</span>
-            <span class="txt-en">Back to Dashboard</span>
-          </button>
+          <button type="submit" class="btn btn-primary">محفوظ کریں (Save)</button>
+          <button type="button" class="btn btn-secondary" id="backToDashFromAdd">واپس ڈیش بورڈ (Back)</button>
         </form>
       </div>
 
       <div id="credentialsView" class="admin-view">
-        <h3 class="txt-ur">کریڈینشلز تبدیل کریں</h3>
-        <h3 class="txt-en">Change Credentials</h3>
+        <h3>کریڈینشلز تبدیل کریں</h3>
 
         <form id="changeCredentialsForm">
           <div class="form-group">
-            <label class="txt-ur">نیا یوزر نیم:</label>
-            <label class="txt-en">New Username:</label>
+            <label>نیا یوزر نیم (New Username):</label>
             <input type="text" id="newUsername" style="direction: ltr;" required>
           </div>
           <div class="form-group">
-            <label class="txt-ur">نیا پاس ورڈ:</label>
-            <label class="txt-en">New Password:</label>
-            <input type="password" id="newPassword" required>
+            <label>نیا پاس ورڈ (New Password):</label>
+            <input type="password" id="newPassword" style="direction: ltr;" required>
           </div>
 
-          <button type="submit" class="btn btn-primary">
-            <span class="txt-ur">اپڈیٹ کریں</span>
-            <span class="txt-en">Update Credentials</span>
-          </button>
-          
-          <button type="button" class="btn btn-secondary" id="backToDashFromCred">
-            <span class="txt-ur">واپس ڈیش بورڈ</span>
-            <span class="txt-en">Back to Dashboard</span>
-          </button>
+          <button type="submit" class="btn btn-primary">اپڈیٹ کریں (Update)</button>
+          <button type="button" class="btn btn-secondary" id="backToDashFromCred">واپس ڈیش بورڈ (Back)</button>
         </form>
       </div>
 
@@ -403,8 +308,6 @@
   </div>
 
   <script>
-    const htmlRoot = document.getElementById('htmlRoot');
-    const langToggle = document.getElementById('langToggle');
     const modal = document.getElementById('adminModal');
     const closeModal = document.getElementById('closeModal');
     const container = document.getElementById('projectsContainer');
@@ -415,38 +318,9 @@
     const credentialsView = document.getElementById('credentialsView');
     const loginError = document.getElementById('loginError');
 
-    // Placeholders dynamic update function
-    function updatePlaceholders(lang) {
-      const urUrName = "مثال: براہوئی ڈکشنری";
-      const enUrName = "e.g. Brahui Dictionary";
-      
-      const urEnName = "مثال: Brahui Dictionary";
-      const enEnName = "e.g. Brahui Dictionary";
-
-      document.getElementById('projUrName').placeholder = (lang === 'ur') ? urUrName : enUrName;
-      document.getElementById('projEnName').placeholder = (lang === 'ur') ? urEnName : enEnName;
-    }
-
-    // Default Credentials setup
+    // Default Credentials Setup
     if (!localStorage.getItem('adminUser')) localStorage.setItem('adminUser', 'admin');
     if (!localStorage.getItem('adminPass')) localStorage.setItem('adminPass', '12345');
-
-    let currentLang = 'ur';
-    updatePlaceholders('ur');
-
-    langToggle.addEventListener('click', () => {
-      if (currentLang === 'ur') {
-        currentLang = 'en';
-        htmlRoot.setAttribute('lang', 'en');
-        htmlRoot.setAttribute('dir', 'ltr');
-        updatePlaceholders('en');
-      } else {
-        currentLang = 'ur';
-        htmlRoot.setAttribute('lang', 'ur');
-        htmlRoot.setAttribute('dir', 'rtl');
-        updatePlaceholders('ur');
-      }
-    });
 
     function showAdminView(viewName) {
       loginView.style.display = 'none';
@@ -518,11 +392,7 @@
       localStorage.setItem('adminUser', newU);
       localStorage.setItem('adminPass', newP);
 
-      const msg = (currentLang === 'ur') 
-        ? 'یوزر نیم اور پاس ورڈ کامیابی سے تبدیل ہو گیا ہے!' 
-        : 'Username and password updated successfully!';
-      alert(msg);
-
+      alert('یوزر نیم اور پاس ورڈ کامیابی سے تبدیل ہو گیا ہے!');
       this.reset();
       showAdminView('dashboard');
     });
