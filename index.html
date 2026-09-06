@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>آن لائن کتب خانہ و منصوبے</title>
+  <title>منصوبے | Projects</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-color: #f5f2e9;
-      --text-green: #1b382b;
-      --text-gold: #b38e46;
+      --bg-color: #f7f4eb;
+      --text-green: #213829;
+      --text-gold: #b28d46;
       --card-bg: #ffffff;
-      --border-color: #e2ded0;
+      --border-color: #e4dfd3;
       --danger-red: #9e2a2b;
       --edit-blue: #2b5c8f;
+      --hide-gray: #6c757d;
     }
 
     * {
@@ -37,7 +38,7 @@
     /* Top Navigation Bar */
     .top-nav {
       max-width: 900px;
-      margin: 0 auto 25px auto;
+      margin: 0 auto 20px auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -49,10 +50,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 18px;
+      padding: 6px 14px;
       border-radius: 8px;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: bold;
       border: none;
       cursor: pointer;
@@ -77,20 +78,31 @@
 
     header {
       text-align: center;
-      margin-bottom: 35px;
+      margin-bottom: 25px;
     }
 
     .header-title-ur {
       color: var(--text-green);
-      font-size: 2.3rem;
+      font-size: 1.7rem;
       font-weight: bold;
-      line-height: 1.8;
+      line-height: 1.6;
+    }
+
+    .header-title-en {
+      color: var(--text-gold);
+      font-size: 1rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      letter-spacing: 2px;
+      display: block;
+      margin-top: -2px;
     }
 
     .header-sub {
       color: #555;
-      font-size: 1rem;
-      margin-top: 5px;
+      font-size: 0.9rem;
+      margin-top: 6px;
+      line-height: 1.6;
     }
 
     /* Main Grid & Cards Layout */
@@ -115,6 +127,11 @@
       position: relative;
     }
 
+    .project-card.hidden-project {
+      opacity: 0.55;
+      border-style: dashed;
+    }
+
     .project-card:hover {
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
       border-color: var(--text-gold);
@@ -129,21 +146,21 @@
     }
 
     .project-card img {
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
       object-fit: contain;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .project-title-ur {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: var(--text-green);
       line-height: 1.8;
       font-weight: bold;
     }
 
     .project-title-en {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-gold);
       font-family: 'Cinzel', serif;
       font-weight: 700;
@@ -151,7 +168,7 @@
       margin-top: 2px;
     }
 
-    /* Admin Edit/Delete Action Buttons on Cards */
+    /* Icon-Only Admin Action Buttons */
     .card-admin-actions {
       display: none;
       margin-top: 15px;
@@ -162,20 +179,29 @@
       gap: 8px;
     }
 
-    .action-btn {
-      padding: 5px 12px;
+    .action-icon-btn {
+      width: 36px;
+      height: 36px;
       border: none;
-      border-radius: 5px;
-      font-size: 0.85rem;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       color: #fff;
-      font-family: inherit;
+      font-size: 1.05rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .action-icon-btn:hover {
+      transform: scale(1.1);
     }
 
     .btn-edit { background-color: var(--edit-blue); }
+    .btn-hide { background-color: var(--hide-gray); }
     .btn-delete { background-color: var(--danger-red); }
 
-    /* Modal Styling */
+    /* Modal System Styling */
     .modal {
       display: none;
       position: fixed;
@@ -236,8 +262,9 @@
       border-radius: 6px;
       cursor: pointer;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #fff;
+      font-weight: bold;
     }
 
     .close-btn {
@@ -273,35 +300,12 @@
   </nav>
 
   <header>
-    <h1 class="header-title-ur">آن لائن کتب خانہ و منصوبے</h1>
-    <p class="header-sub">مطالعہ کے لیے نیچے دی گئی کتب یا پروجیکٹس پر کلک کریں</p>
+    <h1 class="header-title-ur">منصوبے</h1>
+    <span class="header-title-en">PROJECTS</span>
+    <p class="header-sub">ان پروجیکٹس میں آپ کے تعاون کی بھرپور ضرورت ہے</p>
   </header>
 
-  <main class="projects-grid" id="projectsContainer">
-    <div class="project-card" data-id="default-1">
-      <a href="https://example.com/translator" target="_blank" class="project-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="Brahui Translator">
-        <div class="project-title-ur">براہوئی ٹرانسلیٹر</div>
-        <div class="project-title-en">Brahui Translator</div>
-      </a>
-      <div class="card-admin-actions">
-        <button class="action-btn btn-edit" onclick="editProject('default-1')">ایڈٹ</button>
-        <button class="action-btn btn-delete" onclick="deleteProject('default-1')">ڈیلیٹ</button>
-      </div>
-    </div>
-
-    <div class="project-card" data-id="default-2">
-      <a href="https://example.com/vocabulary" target="_blank" class="project-link">
-        <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Brahui Vocabulary">
-        <div class="project-title-ur">براہوئی ذخیرہ الفاظ</div>
-        <div class="project-title-en">Brahui Vocabulary</div>
-      </a>
-      <div class="card-admin-actions">
-        <button class="action-btn btn-edit" onclick="editProject('default-2')">ایڈٹ</button>
-        <button class="action-btn btn-delete" onclick="deleteProject('default-2')">ڈیلیٹ</button>
-      </div>
-    </div>
-  </main>
+  <main class="projects-grid" id="projectsContainer"></main>
 
   <div id="loginModal" class="modal">
     <div class="modal-content">
@@ -337,7 +341,7 @@
         </div>
         <div class="form-group">
           <label>پروجیکٹ کا نام (انگلش):</label>
-          <input type="text" id="projEnName" style="direction: ltr;" required placeholder="e.g. Brahui Dictionary">
+          <input type="text" id="projEnName" style="direction: ltr;" required placeholder="e.g. BRAHUI DICTIONARY">
         </div>
         <div class="form-group">
           <label>آئکن / فوٹو کا لنک (Image URL):</label>
@@ -380,12 +384,32 @@
     const container = document.getElementById('projectsContainer');
     const adminBar = document.getElementById('adminBar');
 
-    // Default Credentials
+    const defaultProjects = [
+      {
+        id: 'def-1',
+        urName: 'براہوئی ٹرانسلیٹر',
+        enName: 'BRAHUI TRANSLATOR',
+        icon: 'https://cdn-icons-png.flaticon.com/512/3898/3898082.png',
+        link: 'https://example.com/translator',
+        hidden: false
+      },
+      {
+        id: 'def-2',
+        urName: 'براہوئی ذخیرہ الفاظ',
+        enName: 'BRAHUI VOCABULARY',
+        icon: 'https://cdn-icons-png.flaticon.com/512/2232/2232688.png',
+        link: 'https://example.com/vocabulary',
+        hidden: false
+      }
+    ];
+
     if (!localStorage.getItem('adminUser')) localStorage.setItem('adminUser', 'atta');
     if (!localStorage.getItem('adminPass')) localStorage.setItem('adminPass', '1234');
+    if (!localStorage.getItem('myProjects')) {
+      localStorage.setItem('myProjects', JSON.stringify(defaultProjects));
+    }
 
-    // Initial Projects Data Load
-    let savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
+    let savedProjects = JSON.parse(localStorage.getItem('myProjects')) || defaultProjects;
 
     function checkAdminState() {
       const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -394,6 +418,8 @@
       document.querySelectorAll('.card-admin-actions').forEach(el => {
         el.style.display = isLoggedIn ? 'flex' : 'none';
       });
+
+      renderProjects();
     }
 
     function checkHash() {
@@ -409,7 +435,7 @@
     }
 
     window.addEventListener('load', () => {
-      renderSavedProjects();
+      renderProjects();
       checkHash();
       checkAdminState();
     });
@@ -478,29 +504,31 @@
       const link = document.getElementById('projLink').value;
 
       if (editId) {
-        // Edit Existing Dynamic Project
-        savedProjects = savedProjects.map(p => p.id == editId ? { id: p.id, urName, enName, icon, link } : p);
+        savedProjects = savedProjects.map(p => p.id == editId ? { ...p, urName, enName, icon, link } : p);
       } else {
-        // Add New
-        const newProj = { id: Date.now(), urName, enName, icon, link };
+        const newProj = { id: Date.now(), urName, enName, icon, link, hidden: false };
         savedProjects.push(newProj);
       }
 
       localStorage.setItem('myProjects', JSON.stringify(savedProjects));
-      renderSavedProjects();
+      renderProjects();
       closeModals();
     });
 
-    // Render Dynamic Projects
-    function renderSavedProjects() {
-      // Remove old dynamic cards
-      document.querySelectorAll('.project-card[data-dynamic="true"]').forEach(el => el.remove());
+    // Render Projects List
+    function renderProjects() {
+      container.innerHTML = '';
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
       savedProjects.forEach(proj => {
+        // If hidden and user is not admin, don't show to general public
+        if (proj.hidden && !isLoggedIn) return;
+
         const card = document.createElement('div');
-        card.className = 'project-card';
-        card.setAttribute('data-dynamic', 'true');
-        card.setAttribute('data-id', proj.id);
+        card.className = `project-card ${proj.hidden ? 'hidden-project' : ''}`;
+
+        const hideIcon = proj.hidden ? '🙈' : '👁️';
+        const hideTitle = proj.hidden ? 'Show' : 'Hide';
 
         card.innerHTML = `
           <a href="${proj.link}" target="_blank" class="project-link">
@@ -508,46 +536,35 @@
             <div class="project-title-ur">${proj.urName}</div>
             <div class="project-title-en">${proj.enName}</div>
           </a>
-          <div class="card-admin-actions">
-            <button class="action-btn btn-edit" onclick="editProject('${proj.id}')">ایڈٹ</button>
-            <button class="action-btn btn-delete" onclick="deleteProject('${proj.id}')">ڈیلیٹ</button>
+          <div class="card-admin-actions" style="display: ${isLoggedIn ? 'flex' : 'none'};">
+            <button class="action-icon-btn btn-edit" onclick="editProject('${proj.id}')" title="Edit">✏️</button>
+            <button class="action-icon-btn btn-hide" onclick="toggleHideProject('${proj.id}')" title="${hideTitle}">${hideIcon}</button>
+            <button class="action-icon-btn btn-delete" onclick="deleteProject('${proj.id}')" title="Delete">🗑️</button>
           </div>
         `;
         container.appendChild(card);
       });
-
-      checkAdminState();
     }
 
-    // Delete Project Action
+    // Toggle Hide/Show Action
+    window.toggleHideProject = function(id) {
+      savedProjects = savedProjects.map(p => p.id == id ? { ...p, hidden: !p.hidden } : p);
+      localStorage.setItem('myProjects', JSON.stringify(savedProjects));
+      renderProjects();
+    };
+
+    // Delete Action
     window.deleteProject = function(id) {
       if (confirm('کیا آپ واقعی اس پروجیکٹ کو ڈیلیٹ کرنا چاہتے ہیں؟')) {
-        if (id.toString().startsWith('default')) {
-          const card = document.querySelector(`.project-card[data-id="${id}"]`);
-          if (card) card.remove();
-        } else {
-          savedProjects = savedProjects.filter(p => p.id != id);
-          localStorage.setItem('myProjects', JSON.stringify(savedProjects));
-          renderSavedProjects();
-        }
+        savedProjects = savedProjects.filter(p => p.id != id);
+        localStorage.setItem('myProjects', JSON.stringify(savedProjects));
+        renderProjects();
       }
     };
 
-    // Edit Project Action
+    // Edit Action
     window.editProject = function(id) {
-      let proj = savedProjects.find(p => p.id == id);
-      
-      if (!proj && id.toString().startsWith('default')) {
-        const card = document.querySelector(`.project-card[data-id="${id}"]`);
-        proj = {
-          id: id,
-          urName: card.querySelector('.project-title-ur').innerText,
-          enName: card.querySelector('.project-title-en').innerText,
-          icon: card.querySelector('img').src,
-          link: card.querySelector('a').href
-        };
-      }
-
+      const proj = savedProjects.find(p => p.id == id);
       if (proj) {
         document.getElementById('editProjId').value = proj.id;
         document.getElementById('projUrName').value = proj.urName;
