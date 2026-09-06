@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atta ur Rehman Atta - Projects</title>
+  
+  <!-- Fonts: Noto Nastaliq Urdu & Cinzel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Theme Colors */
+    :root {
+      --bg-color: #fcfbfa;       /* Soft Off-White Background */
+      --text-green: #1c3829;     /* Dark Forest Green */
+      --text-gold: #b38b4d;      /* Gold/Tan for Urdu Style */
+      --card-bg: #ffffff;        /* White Card Background */
+      --border-color: #e0dbd1;   /* Soft Border Color */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: #333;
+      font-family: 'Noto Nastaliq Urdu', serif;
+      padding: 20px;
+    }
+
+    /* English Font Override */
+    [lang="en"] body {
+      font-family: 'Cinzel', serif, sans-serif;
+    }
+
+    /* Top Navigation / Language Switcher */
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      max-width: 1000px;
+      margin: 0 auto 30px auto;
+    }
+
+    .lang-btn {
+      background-color: var(--text-green);
+      color: #fff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .lang-btn:hover {
+      background-color: var(--text-gold);
+    }
+
+    /* Page Header */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1.title-en {
+      font-family: 'Cinzel', serif;
+      color: var(--text-green);
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+      letter-spacing: 1px;
+    }
+
+    h2.title-ur {
+      color: var(--text-gold);
+      font-size: 1.8rem;
+      font-weight: normal;
+      line-height: 2;
+    }
+
+    /* Projects Grid Setup */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      border-color: var(--text-gold);
+    }
+
+    /* Icon Top, Name Bottom */
+    .project-card img {
+      width: 75px;
+      height: 75px;
+      object-fit: contain;
+      margin-bottom: 18px;
+    }
+
+    .project-title-ur {
+      font-size: 1.25rem;
+      color: var(--text-green);
+      line-height: 1.8;
+      font-weight: bold;
+    }
+
+    .project-title-en {
+      font-size: 0.95rem;
+      color: var(--text-gold);
+      font-family: 'Cinzel', serif;
+      margin-top: 5px;
+      display: none;
+    }
+
+    [lang="en"] .project-title-en { display: block; }
+    [lang="en"] .project-title-ur { font-size: 1.1rem; }
+
+    /* Admin Modal Form (#admin) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      text-align: right;
+      direction: rtl;
+    }
+
+    .modal-content h3 {
+      color: var(--text-green);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text-green);
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background: var(--bg-color);
+      font-family: inherit;
+      direction: rtl;
+    }
+
+    .form-group input[type="url"] {
+      direction: ltr;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background-color: var(--text-green);
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+    .btn-submit:hover {
+      background-color: var(--text-gold);
+    }
+
+    .close-btn {
+      float: left;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #888;
+    }
+    .close-btn:hover { color: #000; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Language Switcher -->
+  <div class="top-bar">
+    <button class="lang-btn" id="langToggle">EN | اردو</button>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1 class="title-en">Atta ur Rehman Atta</h1>
+    <h2 class="title-ur">عطاء الرحمن عطاء</h2>
+  </header>
+
+  <!-- Projects Grid Container -->
+  <main class="projects-grid" id="projectsContainer">
+    <!-- Default Project 1 -->
+    <a href="https://example.com/translator" target="_blank" class="project-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="براہوئی ٹرانسلیٹر">
+      <div class="project-title-ur">براہوئی ٹرانسلیٹر</div>
+      <div class="project-title-en">Brahui Translator</div>
+    </a>
+
+    <!-- Default Project 2 -->
+    <a href="https://example.com/vocabulary" target="_blank" class="project-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="براہوئی ذخیرہ الفاظ">
+      <div class="project-title-ur">براہوئی ذخیرہ الفاظ</div>
+      <div class="project-title-en">Brahui Vocabulary</div>
+    </a>
+  </main>
+
+  <!-- Admin Modal Form (#admin) -->
+  <div id="adminModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">&times;</span>
+      <h3>نیا پروجیکٹ شامل کریں</h3>
+      <form id="addProjectForm">
+        <div class="form-group">
+          <label>پروجیکٹ کا نام (اردو):</label>
+          <input type="text" id="projUrName" required placeholder="مثال: براہوئی ڈکشنری">
+        </div>
+        <div class="form-group">
+          <label>پروجیکٹ کا نام (انگلش):</label>
+          <input type="text" id="projEnName" placeholder="e.g. Brahui Dictionary">
+        </div>
+        <div class="form-group">
+          <label>آئیکن / فوٹو کا لنک (Image URL):</label>
+          <input type="url" id="projIcon" required placeholder="https://example.com/icon.png">
+        </div>
+        <div class="form-group">
+          <label>پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
+          <input type="url" id="projLink" required placeholder="https://your-project-link.com">
+        </div>
+        <button type="submit" class="btn-submit">محفوظ کریں</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const htmlRoot = document.getElementById('htmlRoot');
+    const langToggle = document.getElementById('langToggle');
+    const modal = document.getElementById('adminModal');
+    const closeModal = document.getElementById('closeModal');
+    const form = document.getElementById('addProjectForm');
+    const container = document.getElementById('projectsContainer');
+
+    // 1. Language Switcher Logic
+    let currentLang = 'ur';
+    langToggle.addEventListener('click', () => {
+      if (currentLang === 'ur') {
+        currentLang = 'en';
+        htmlRoot.setAttribute('lang', 'en');
+        htmlRoot.setAttribute('dir', 'ltr');
+      } else {
+        currentLang = 'ur';
+        htmlRoot.setAttribute('lang', 'ur');
+        htmlRoot.setAttribute('dir', 'rtl');
+      }
+    });
+
+    // 2. Hash (#admin) Detection Logic
+    function checkHash() {
+      if (window.location.hash === '#admin') {
+        modal.style.display = 'flex';
+      } else {
+        modal.style.display = 'none';
+      }
+    }
+    window.addEventListener('load', checkHash);
+    window.addEventListener('hashchange', checkHash);
+
+    closeModal.onclick = function() {
+      modal.style.display = 'none';
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    };
+
+    // 3. Load Custom Projects from LocalStorage
+    function loadSavedProjects() {
+      const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
+      savedProjects.forEach(proj => {
+        appendProjectToDOM(proj.urName, proj.enName, proj.icon, proj.link);
+      });
+    }
+
+    // 4. Render Project Card with Dynamic Link
+    function appendProjectToDOM(urName, enName, icon, link) {
+      const card = document.createElement('a');
+      card.href = link;
+      card.target = '_blank';
+      card.className = 'project-card';
+
+      card.innerHTML = `
+        <img src="${icon}" alt="${urName}">
+        <div class="project-title-ur">${urName}</div>
+        <div class="project-title-en">${enName || urName}</div>
+      `;
+      container.appendChild(card);
+    }
+
+    // 5. Handle Form Submission
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const urName = document.getElementById('projUrName').value;
+      const enName = document.getElementById('projEnName').value;
+      const icon = document.getElementById('projIcon').value;
+      const link = document.getElementById('projLink').value;
+
+      // Save to LocalStorage
+      const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
+      savedProjects.push({ urName, enName, icon, link });
+      localStorage.setItem('myProjects', JSON.stringify(savedProjects));
+
+      // Append Card to Grid
+      appendProjectToDOM(urName, enName, icon, link);
+
+      // Reset Form & Close Modal
+      form.reset();
+      modal.style.display = 'none';
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    });
+
+    loadSavedProjects();
+  </script>
+</body>
+</html>
