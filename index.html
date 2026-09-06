@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atta ur Rehman Atta - Projects</title>
+  <title>Projects</title>
   
-  <!-- Fonts: Noto Nastaliq Urdu & Cinzel -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* Theme Colors */
     :root {
-      --bg-color: #fcfbfa;       /* Soft Off-White Background */
-      --text-green: #1c3829;     /* Dark Forest Green */
-      --text-gold: #b38b4d;      /* Gold/Tan for Urdu Style */
-      --card-bg: #ffffff;        /* White Card Background */
-      --border-color: #e0dbd1;   /* Soft Border Color */
+      --bg-color: #f7f5ed;
+      --text-green: #233b2c;
+      --text-gold: #b38e46;
+      --card-bg: #ffffff;
+      --border-color: #e2ded0;
+      --danger-red: #8b0000;
     }
 
     * {
@@ -34,12 +33,10 @@
       padding: 20px;
     }
 
-    /* English Font Override */
     [lang="en"] body {
       font-family: 'Cinzel', serif, sans-serif;
     }
 
-    /* Top Navigation / Language Switcher */
     .top-bar {
       display: flex;
       justify-content: flex-end;
@@ -57,32 +54,32 @@
       font-size: 0.9rem;
       font-family: inherit;
     }
-    .lang-btn:hover {
-      background-color: var(--text-gold);
-    }
 
-    /* Page Header */
     header {
       text-align: center;
       margin-bottom: 40px;
     }
 
-    h1.title-en {
-      font-family: 'Cinzel', serif;
+    .header-title-ur {
       color: var(--text-green);
       font-size: 2.2rem;
-      margin-bottom: 5px;
+      font-weight: bold;
+      line-height: 1.8;
+      display: block;
+    }
+
+    .header-title-en {
+      color: var(--text-green);
+      font-size: 2.2rem;
+      font-family: 'Cinzel', serif;
+      font-weight: bold;
       letter-spacing: 1px;
+      display: none;
     }
 
-    h2.title-ur {
-      color: var(--text-gold);
-      font-size: 1.8rem;
-      font-weight: normal;
-      line-height: 2;
-    }
+    [lang="en"] .header-title-ur { display: none; }
+    [lang="en"] .header-title-en { display: block; }
 
-    /* Projects Grid Setup */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -108,10 +105,8 @@
     .project-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-      border-color: var(--text-gold);
     }
 
-    /* Icon Top, Name Bottom */
     .project-card img {
       width: 75px;
       height: 75px;
@@ -124,20 +119,33 @@
       color: var(--text-green);
       line-height: 1.8;
       font-weight: bold;
+      display: block;
     }
 
     .project-title-en {
-      font-size: 0.95rem;
-      color: var(--text-gold);
+      font-size: 1.1rem;
+      color: var(--text-green);
       font-family: 'Cinzel', serif;
-      margin-top: 5px;
+      font-weight: bold;
       display: none;
     }
 
+    [lang="en"] .project-title-ur { display: none; }
     [lang="en"] .project-title-en { display: block; }
-    [lang="en"] .project-title-ur { font-size: 1.1rem; }
 
-    /* Admin Modal Form (#admin) */
+    /* Multilingual Visibility Control */
+    .txt-en { display: none !important; }
+    .txt-ur { display: block !important; }
+
+    [lang="en"] .txt-en { display: block !important; }
+    [lang="en"] .txt-ur { display: none !important; }
+
+    span.txt-en { display: inline !important; }
+    span.txt-ur { display: inline !important; }
+    [lang="en"] span.txt-ur { display: none !important; }
+    [lang="en"] span.txt-en { display: inline !important; }
+
+    /* Modal System */
     .modal {
       display: none;
       position: fixed;
@@ -158,8 +166,7 @@
       width: 90%;
       max-width: 450px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-      text-align: right;
-      direction: rtl;
+      position: relative;
     }
 
     .modal-content h3 {
@@ -186,91 +193,212 @@
       border-radius: 6px;
       background: var(--bg-color);
       font-family: inherit;
-      direction: rtl;
-    }
-
-    .form-group input[type="url"] {
       direction: ltr;
     }
 
-    .btn-submit {
+    .form-group input[type="text"] {
+      direction: rtl;
+    }
+
+    [lang="en"] .form-group input[type="text"] {
+      direction: ltr;
+    }
+
+    .btn {
       width: 100%;
-      background-color: var(--text-green);
-      color: #fff;
       padding: 12px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-family: inherit;
       font-size: 1rem;
+      margin-bottom: 10px;
     }
-    .btn-submit:hover {
+
+    .btn-primary {
+      background-color: var(--text-green);
+      color: #fff;
+    }
+
+    .btn-secondary {
       background-color: var(--text-gold);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background-color: var(--danger-red);
+      color: #fff;
     }
 
     .close-btn {
-      float: left;
+      position: absolute;
+      top: 15px;
+      left: 20px;
       font-size: 1.4rem;
       cursor: pointer;
       color: #888;
     }
-    .close-btn:hover { color: #000; }
+
+    [lang="en"] .close-btn {
+      left: auto;
+      right: 20px;
+    }
+
+    .error-msg {
+      color: var(--danger-red);
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      text-align: center;
+      display: none;
+    }
+
+    .admin-view {
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Top Language Switcher -->
   <div class="top-bar">
     <button class="lang-btn" id="langToggle">EN | اردو</button>
   </div>
 
-  <!-- Header -->
   <header>
-    <h1 class="title-en">Atta ur Rehman Atta</h1>
-    <h2 class="title-ur">عطاء الرحمن عطاء</h2>
+    <h1 class="header-title-ur">منصوبے</h1>
+    <h1 class="header-title-en">Projects</h1>
   </header>
 
-  <!-- Projects Grid Container -->
   <main class="projects-grid" id="projectsContainer">
-    <!-- Default Project 1 -->
     <a href="https://example.com/translator" target="_blank" class="project-card">
-      <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="براہوئی ٹرانسلیٹر">
+      <img src="https://cdn-icons-png.flaticon.com/512/3898/3898082.png" alt="Brahui Translator">
       <div class="project-title-ur">براہوئی ٹرانسلیٹر</div>
       <div class="project-title-en">Brahui Translator</div>
     </a>
 
-    <!-- Default Project 2 -->
     <a href="https://example.com/vocabulary" target="_blank" class="project-card">
-      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="براہوئی ذخیرہ الفاظ">
+      <img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png" alt="Brahui Vocabulary">
       <div class="project-title-ur">براہوئی ذخیرہ الفاظ</div>
       <div class="project-title-en">Brahui Vocabulary</div>
     </a>
   </main>
 
-  <!-- Admin Modal Form (#admin) -->
   <div id="adminModal" class="modal">
     <div class="modal-content">
       <span class="close-btn" id="closeModal">&times;</span>
-      <h3>نیا پروجیکٹ شامل کریں</h3>
-      <form id="addProjectForm">
-        <div class="form-group">
-          <label>پروجیکٹ کا نام (اردو):</label>
-          <input type="text" id="projUrName" required placeholder="مثال: براہوئی ڈکشنری">
+
+      <div id="loginView">
+        <h3 class="txt-ur">ایڈمن لاگ ان</h3>
+        <h3 class="txt-en">Admin Login</h3>
+        
+        <div id="loginError" class="error-msg">
+          <span class="txt-ur">غلط یوزر نیم یا پاس ورڈ!</span>
+          <span class="txt-en">Invalid username or password!</span>
         </div>
-        <div class="form-group">
-          <label>پروجیکٹ کا نام (انگلش):</label>
-          <input type="text" id="projEnName" placeholder="e.g. Brahui Dictionary">
-        </div>
-        <div class="form-group">
-          <label>آئیکن / فوٹو کا لنک (Image URL):</label>
-          <input type="url" id="projIcon" required placeholder="https://example.com/icon.png">
-        </div>
-        <div class="form-group">
-          <label>پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
-          <input type="url" id="projLink" required placeholder="https://your-project-link.com">
-        </div>
-        <button type="submit" class="btn-submit">محفوظ کریں</button>
-      </form>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label class="txt-ur">یوزر نیم:</label>
+            <label class="txt-en">Username:</label>
+            <input type="text" id="loginUser" style="direction: ltr;" required>
+          </div>
+          <div class="form-group">
+            <label class="txt-ur">پاس ورڈ:</label>
+            <label class="txt-en">Password:</label>
+            <input type="password" id="loginPass" required>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <span class="txt-ur">لاگ ان کریں</span>
+            <span class="txt-en">Login</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="dashboardView" class="admin-view">
+        <h3 class="txt-ur">ایڈمن کنٹرول پینل</h3>
+        <h3 class="txt-en">Admin Dashboard</h3>
+
+        <button class="btn btn-primary" id="showAddProjectBtn">
+          <span class="txt-ur">نیا پروجیکٹ شامل کریں</span>
+          <span class="txt-en">Add New Project</span>
+        </button>
+        
+        <button class="btn btn-secondary" id="showCredentialsBtn">
+          <span class="txt-ur">یوزر نیم / پاس ورڈ تبدیل کریں</span>
+          <span class="txt-en">Change Credentials</span>
+        </button>
+
+        <button class="btn btn-danger" id="logoutBtn">
+          <span class="txt-ur">لاگ آؤٹ</span>
+          <span class="txt-en">Logout</span>
+        </button>
+      </div>
+
+      <div id="addProjectView" class="admin-view">
+        <h3 class="txt-ur">نیا پروجیکٹ شامل کریں</h3>
+        <h3 class="txt-en">Add New Project</h3>
+
+        <form id="addProjectForm">
+          <div class="form-group">
+            <label class="txt-ur">پروجیکٹ کا نام (اردو):</label>
+            <label class="txt-en">Project Name (Urdu):</label>
+            <input type="text" id="projUrName" required>
+          </div>
+          <div class="form-group">
+            <label class="txt-ur">پروجیکٹ کا نام (انگلش):</label>
+            <label class="txt-en">Project Name (English):</label>
+            <input type="text" id="projEnName" required>
+          </div>
+          <div class="form-group">
+            <label class="txt-ur">آئکن / فوٹو کا لنک (Image URL):</label>
+            <label class="txt-en">Icon / Photo URL:</label>
+            <input type="url" id="projIcon" required placeholder="https://example.com/icon.png">
+          </div>
+          <div class="form-group">
+            <label class="txt-ur">پروجیکٹ ویب سائٹ کا لنک (Project URL):</label>
+            <label class="txt-en">Project Website URL:</label>
+            <input type="url" id="projLink" required placeholder="https://your-project-link.com">
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span class="txt-ur">محفوظ کریں</span>
+            <span class="txt-en">Save Project</span>
+          </button>
+          
+          <button type="button" class="btn btn-secondary" id="backToDashFromAdd">
+            <span class="txt-ur">واپس ڈیش بورڈ</span>
+            <span class="txt-en">Back to Dashboard</span>
+          </button>
+        </form>
+      </div>
+
+      <div id="credentialsView" class="admin-view">
+        <h3 class="txt-ur">کریڈینشلز تبدیل کریں</h3>
+        <h3 class="txt-en">Change Credentials</h3>
+
+        <form id="changeCredentialsForm">
+          <div class="form-group">
+            <label class="txt-ur">نیا یوزر نیم:</label>
+            <label class="txt-en">New Username:</label>
+            <input type="text" id="newUsername" style="direction: ltr;" required>
+          </div>
+          <div class="form-group">
+            <label class="txt-ur">نیا پاس ورڈ:</label>
+            <label class="txt-en">New Password:</label>
+            <input type="password" id="newPassword" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">
+            <span class="txt-ur">اپڈیٹ کریں</span>
+            <span class="txt-en">Update Credentials</span>
+          </button>
+          
+          <button type="button" class="btn btn-secondary" id="backToDashFromCred">
+            <span class="txt-ur">واپس ڈیش بورڈ</span>
+            <span class="txt-en">Back to Dashboard</span>
+          </button>
+        </form>
+      </div>
+
     </div>
   </div>
 
@@ -279,27 +407,67 @@
     const langToggle = document.getElementById('langToggle');
     const modal = document.getElementById('adminModal');
     const closeModal = document.getElementById('closeModal');
-    const form = document.getElementById('addProjectForm');
     const container = document.getElementById('projectsContainer');
 
-    // 1. Language Switcher Logic
+    const loginView = document.getElementById('loginView');
+    const dashboardView = document.getElementById('dashboardView');
+    const addProjectView = document.getElementById('addProjectView');
+    const credentialsView = document.getElementById('credentialsView');
+    const loginError = document.getElementById('loginError');
+
+    // Placeholders dynamic update function
+    function updatePlaceholders(lang) {
+      const urUrName = "مثال: براہوئی ڈکشنری";
+      const enUrName = "e.g. Brahui Dictionary";
+      
+      const urEnName = "مثال: Brahui Dictionary";
+      const enEnName = "e.g. Brahui Dictionary";
+
+      document.getElementById('projUrName').placeholder = (lang === 'ur') ? urUrName : enUrName;
+      document.getElementById('projEnName').placeholder = (lang === 'ur') ? urEnName : enEnName;
+    }
+
+    // Default Credentials setup
+    if (!localStorage.getItem('adminUser')) localStorage.setItem('adminUser', 'admin');
+    if (!localStorage.getItem('adminPass')) localStorage.setItem('adminPass', '12345');
+
     let currentLang = 'ur';
+    updatePlaceholders('ur');
+
     langToggle.addEventListener('click', () => {
       if (currentLang === 'ur') {
         currentLang = 'en';
         htmlRoot.setAttribute('lang', 'en');
         htmlRoot.setAttribute('dir', 'ltr');
+        updatePlaceholders('en');
       } else {
         currentLang = 'ur';
         htmlRoot.setAttribute('lang', 'ur');
         htmlRoot.setAttribute('dir', 'rtl');
+        updatePlaceholders('ur');
       }
     });
 
-    // 2. Hash (#admin) Detection Logic
+    function showAdminView(viewName) {
+      loginView.style.display = 'none';
+      dashboardView.style.display = 'none';
+      addProjectView.style.display = 'none';
+      credentialsView.style.display = 'none';
+
+      if (viewName === 'login') loginView.style.display = 'block';
+      if (viewName === 'dashboard') dashboardView.style.display = 'block';
+      if (viewName === 'add') addProjectView.style.display = 'block';
+      if (viewName === 'credentials') credentialsView.style.display = 'block';
+    }
+
     function checkHash() {
       if (window.location.hash === '#admin') {
         modal.style.display = 'flex';
+        if (sessionStorage.getItem('isLoggedIn') === 'true') {
+          showAdminView('dashboard');
+        } else {
+          showAdminView('login');
+        }
       } else {
         modal.style.display = 'none';
       }
@@ -312,7 +480,72 @@
       history.pushState("", document.title, window.location.pathname + window.location.search);
     };
 
-    // 3. Load Custom Projects from LocalStorage
+    // 1. Handle Login
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const u = document.getElementById('loginUser').value;
+      const p = document.getElementById('loginPass').value;
+
+      if (u === localStorage.getItem('adminUser') && p === localStorage.getItem('adminPass')) {
+        sessionStorage.setItem('isLoggedIn', 'true');
+        loginError.style.display = 'none';
+        this.reset();
+        showAdminView('dashboard');
+      } else {
+        loginError.style.display = 'block';
+      }
+    });
+
+    // 2. Dashboard Navigation Buttons
+    document.getElementById('showAddProjectBtn').onclick = () => showAdminView('add');
+    document.getElementById('showCredentialsBtn').onclick = () => showAdminView('credentials');
+    document.getElementById('backToDashFromAdd').onclick = () => showAdminView('dashboard');
+    document.getElementById('backToDashFromCred').onclick = () => showAdminView('dashboard');
+
+    document.getElementById('logoutBtn').onclick = () => {
+      sessionStorage.removeItem('isLoggedIn');
+      showAdminView('login');
+      modal.style.display = 'none';
+      history.pushState("", document.title, window.location.pathname + window.location.search);
+    };
+
+    // 3. Handle Credentials Change
+    document.getElementById('changeCredentialsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newU = document.getElementById('newUsername').value;
+      const newP = document.getElementById('newPassword').value;
+
+      localStorage.setItem('adminUser', newU);
+      localStorage.setItem('adminPass', newP);
+
+      const msg = (currentLang === 'ur') 
+        ? 'یوزر نیم اور پاس ورڈ کامیابی سے تبدیل ہو گیا ہے!' 
+        : 'Username and password updated successfully!';
+      alert(msg);
+
+      this.reset();
+      showAdminView('dashboard');
+    });
+
+    // 4. Handle Add Project Form
+    document.getElementById('addProjectForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const urName = document.getElementById('projUrName').value;
+      const enName = document.getElementById('projEnName').value;
+      const icon = document.getElementById('projIcon').value;
+      const link = document.getElementById('projLink').value;
+
+      const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
+      savedProjects.push({ urName, enName, icon, link });
+      localStorage.setItem('myProjects', JSON.stringify(savedProjects));
+
+      appendProjectToDOM(urName, enName, icon, link);
+
+      this.reset();
+      showAdminView('dashboard');
+    });
+
+    // 5. Load Projects Logic
     function loadSavedProjects() {
       const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
       savedProjects.forEach(proj => {
@@ -320,7 +553,6 @@
       });
     }
 
-    // 4. Render Project Card with Dynamic Link
     function appendProjectToDOM(urName, enName, icon, link) {
       const card = document.createElement('a');
       card.href = link;
@@ -328,34 +560,12 @@
       card.className = 'project-card';
 
       card.innerHTML = `
-        <img src="${icon}" alt="${urName}">
+        <img src="${icon}" alt="${enName || urName}">
         <div class="project-title-ur">${urName}</div>
         <div class="project-title-en">${enName || urName}</div>
       `;
       container.appendChild(card);
     }
-
-    // 5. Handle Form Submission
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const urName = document.getElementById('projUrName').value;
-      const enName = document.getElementById('projEnName').value;
-      const icon = document.getElementById('projIcon').value;
-      const link = document.getElementById('projLink').value;
-
-      // Save to LocalStorage
-      const savedProjects = JSON.parse(localStorage.getItem('myProjects')) || [];
-      savedProjects.push({ urName, enName, icon, link });
-      localStorage.setItem('myProjects', JSON.stringify(savedProjects));
-
-      // Append Card to Grid
-      appendProjectToDOM(urName, enName, icon, link);
-
-      // Reset Form & Close Modal
-      form.reset();
-      modal.style.display = 'none';
-      history.pushState("", document.title, window.location.pathname + window.location.search);
-    });
 
     loadSavedProjects();
   </script>
